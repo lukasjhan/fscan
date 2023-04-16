@@ -19,6 +19,9 @@ impl DirectoryNode {
 pub struct FileNode {
     pub name: String,
     pub size: u64,
+    pub hidden: bool,
+    pub symlink: bool,
+    pub executable: bool,
 }
 
 pub enum FSNode {
@@ -51,6 +54,26 @@ impl FSNode {
         match *self {
             FSNode::Directory(_) => true,
             FSNode::File(_) => false,
+        }
+    }
+
+    pub fn is_hidden(&self) -> bool {
+        match *self {
+            FSNode::Directory(_) => false,
+            FSNode::File(ref f) => f.hidden,
+        }
+    }
+
+    pub fn is_symlink(&self) -> bool {
+        match *self {
+            FSNode::Directory(_) => false,
+            FSNode::File(ref f) => f.symlink,
+        }
+    }
+    pub fn is_executable(&self) -> bool {
+        match *self {
+            FSNode::Directory(_) => false,
+            FSNode::File(ref f) => f.executable,
         }
     }
 }
