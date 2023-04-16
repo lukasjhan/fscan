@@ -1,0 +1,11 @@
+[package]
+name = "fsan"
+version = "0.1.0"
+description = "A simple tool to analyze the file system"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+tabwriter = "1.0"
+clap = "2.23"
