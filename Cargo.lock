@@ -44,7 +44,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "fsan"
+name = "fscan"
 version = "0.1.0"
 dependencies = [
  "clap",
