@@ -1,8 +1,11 @@
 [package]
 name = "fsan"
 version = "0.1.0"
+authors = ["Lukas.J Han <lukas.j.han@gmail.com>"]
 description = "A simple tool to analyze the filesystem"
 edition = "2021"
+license = "MIT"
+repository = "https://github.com/lukasjhan/fsan"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
