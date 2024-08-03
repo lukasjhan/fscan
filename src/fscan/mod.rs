@@ -1,15 +1,15 @@
 use std::cmp::Ordering;
 use std::io::Write;
+use std::os::unix::fs::PermissionsExt;
 use std::path::Path;
 use std::{fs, io};
-use std::os::unix::fs::PermissionsExt;
 
 pub mod print;
 pub mod tree;
 
 use self::tree::{DirectoryNode, FSNode, FileNode};
 
-fn is_hidden(name: &String) -> bool {
+fn is_hidden(name: String) -> bool {
     name.starts_with('.')
 }
 
@@ -21,7 +21,7 @@ pub fn read_recursive(path: &Path, follow_symlinks: bool) -> FSNode {
         .to_string();
     let mut node = DirectoryNode::new(name);
 
-    match fs::read_dir(&path) {
+    match fs::read_dir(path) {
         Ok(entries) => {
             for entry in entries {
                 let entry = match entry {
@@ -38,7 +38,7 @@ pub fn read_recursive(path: &Path, follow_symlinks: bool) -> FSNode {
                 };
                 let path = entry.path();
                 let name = entry.file_name().to_string_lossy().to_string();
-                let hidden = is_hidden(&name);
+                let hidden = is_hidden(name.clone());
                 let meta = match if follow_symlinks {
                     fs::metadata(&path)
                 } else {
@@ -58,9 +58,9 @@ pub fn read_recursive(path: &Path, follow_symlinks: bool) -> FSNode {
 
                 if meta.is_file() {
                     node.children.push(FSNode::File(FileNode {
-                        name: name,
+                        name,
                         size: meta.len(),
-                        hidden: hidden,
+                        hidden,
                         symlink: meta.file_type().is_symlink(),
                         executable: meta.permissions().mode() & 0o111 != 0,
                     }));

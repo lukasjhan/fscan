@@ -9,7 +9,7 @@ pub struct DirectoryNode {
 impl DirectoryNode {
     pub fn new(name: String) -> DirectoryNode {
         DirectoryNode {
-            name: name,
+            name,
             children: Vec::new(),
             size: 0,
         }
