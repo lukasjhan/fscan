@@ -1,6 +1,6 @@
 [package]
 name = "fscan"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Lukas.J Han <lukas.j.han@gmail.com>"]
 description = "A simple tool to analyze the filesystem"
 edition = "2021"
